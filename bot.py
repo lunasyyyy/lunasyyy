@@ -18,7 +18,7 @@ from telegram.ext import (
 )
 
 # Настройки бота
-TOKEN = "7917789293:AAFVJKh0009d_FH7aht6m_KuW6XKZsyZFZ4"
+TOKEN = "7991880472:AAFEbXe_hQzPC_KIqxiRnpwIQ30KnQ5P_JQ"
 ADMIN_IDS = {7225179442}  # Используем множество для быстрого поиска
 
 # Типы данных для аннотаций
