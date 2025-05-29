@@ -1,5 +1,7 @@
 import logging
 import random
+from flask import Flask, request
+import telebot
 from typing import Dict, Set, List, Optional
 from telegram import (
     Update,
@@ -832,13 +834,5 @@ def setup_handlers(application: Application) -> None:
     application.add_handler(CallbackQueryHandler(button_handler))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
-
-def main() -> None:
-    """Основная функция запуска бота"""
-    application = Application.builder().token(TOKEN).build()
-    setup_handlers(application)
-    application.run_polling()
-
-
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=10000)  # ← Вот эта строка задаёт порт
