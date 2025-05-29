@@ -1,7 +1,6 @@
 import logging
 import random
 from flask import Flask, request
-import telebot
 from typing import Dict, Set, List, Optional
 from telegram import (
     Update,
@@ -39,13 +38,18 @@ logging.basicConfig(
     level=logging.INFO,
 )
 logger = logging.getLogger(__name__)
-    bot = telebot.TeleBot(TOKEN)
+
 app = Flask(__name__)
 
 @app.route('/', methods=['POST'])
 def webhook():
-    # Обработка входящих сообщений
-    pass
+    if request.headers.get('content-type') == 'application/json':
+        json_string = request.get_data().decode('utf-8')
+        update = Update.de_json(json_string, bot)
+        dispatcher.process_update(update)
+        return ''
+    return 'Bad Request', 400
+
 
 def generate_unique_id() -> int:
     """Генерирует уникальный 5-значный ID для пользователя"""
@@ -840,4 +844,11 @@ def setup_handlers(application: Application) -> None:
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000)  # ← Вот эта строка задаёт порт
+    application = Application.builder().token(TOKEN).build()
+    setup_handlers(application)
+    
+    # Запуск Flask для вебхуков
+    app.run(host='0.0.0.0', port=10000)
+    
+    # Или для polling:
+    # application.run_polling()
