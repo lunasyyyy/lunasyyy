@@ -39,7 +39,13 @@ logging.basicConfig(
     level=logging.INFO,
 )
 logger = logging.getLogger(__name__)
+    bot = telebot.TeleBot("YOUR_BOT_TOKEN")
+app = Flask(__name__)
 
+@app.route('/', methods=['POST'])
+def webhook():
+    # Обработка входящих сообщений
+    pass
 
 def generate_unique_id() -> int:
     """Генерирует уникальный 5-значный ID для пользователя"""
@@ -818,7 +824,6 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         else:
             await send_individual_message(update, context)
         return
-
 
 def setup_handlers(application: Application) -> None:
     """Настройка обработчиков команд и сообщений"""
