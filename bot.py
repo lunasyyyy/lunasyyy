@@ -39,7 +39,7 @@ logging.basicConfig(
     level=logging.INFO,
 )
 logger = logging.getLogger(__name__)
-    bot = telebot.TeleBot("YOUR_BOT_TOKEN")
+    bot = telebot.TeleBot(TOKEN)
 app = Flask(__name__)
 
 @app.route('/', methods=['POST'])
